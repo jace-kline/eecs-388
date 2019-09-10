@@ -1,5 +1,21 @@
 # Lab 02 Report
 ## Section 1: Quiz Questions
+1. Convert the following numbers in to decimal:
+   * 101<sub>2</sub> = 5<sub>10</sub>
+   * 1111<sub>2</sub> = 15<sub>10</sub>
+   * 11<sub>16</sub> = 17<sub>10</sub>
+   * 1f<sub>16</sub> = 31<sub>10</sub>
+2. What will be the output of the following code. Why?
+```c
+uint8_t var = 256;
+printf("%d\n", var);
+```
+The output will be **0** because the integer type is 8-bit, fixed, and unsigned. 256 is the next number after the maximum that the uint8_t type can hold (255). Because it is unsigned, it will wrap the value 256 to 0.
+
+3. Suppose val = 0 and gpio = 3. What is the value of 'val' after the operation `val |= (1<<gpio);`? (Binary and Hexadecimal)
+   * Answer: **val = 1000<sub>2</sub> = 8<sub>16</sub>**
+4. Suppose val = 8 and gpio = 3. What is the value of 'val' after the operation `val &= (~(1<<gpio));`? (Binary and Hexadecimal)
+   * Answer: **val = 0<sub>2</sub> = 0<sub>16</sub>**
 
 ## Section 2: Report
 ### Title: RGB Blinky LED Lab
@@ -130,7 +146,7 @@ Operators are the primitive infix functions used to manipulate data in C. There 
 * Shift - operators that shift the binary representation of piece of data right or left by a specified amount
 * Assignment - Shorthand notations for applying one of the above operations to a piece of data and then overwriting that data
 
-In conclusion, I have gained a solid foundation in the principles discussed in this section. I have also gained more experience programming in C. These combined will help me in further labs.
+In conclusion, I have gained a solid foundation in the principles discussed in this section. I have also gained more experience programming in C. These combined will help me in future labs.
 
 
 

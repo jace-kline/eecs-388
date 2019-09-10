@@ -1,4 +1,9 @@
 # Lab 02 Report
+
+<p>Name: Jace Kline</p>
+<p>KUID: 2881618</p>
+<p>Lab Section: Monday, 2:00-3:50 PM</p>
+
 ## Section 1: Quiz Questions
 1. Convert the following numbers in to decimal:
    * 101<sub>2</sub> = 5<sub>10</sub>

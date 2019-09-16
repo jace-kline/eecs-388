@@ -107,16 +107,16 @@ char ser_read()
     1) wait until UART0 RX FIFO is not empty
     2) read the data from the FIFO and return the read (one) byte. 
   */
-
-  // A pointer to the RXDATA registry address
-  volatile uint32_t* receive_addr = (volatile uint32_t *)(UART0_CTRL_ADDR + UART_RXDATA);
   
   // A variable to store the dereferenced data value
   uint32_t receive_val;
   
+  // the looping condition is true when the 31st bit is true 
+  // (the queue is empty) -> repeat
   do {
-    receive_val = *(receive_addr);
-  } while(receive_val & 0x80000000); //the condition is true when the 31st bit is true (the queue is empty) -> repeat
+    receive_val = *(volatile uint32_t *)(UART0_CTRL_ADDR + UART_RXDATA);
+  } while(receive_val & 0x80000000); 
 
-  return(receive_val); //return the stored value when the queue is no longer empty
+  //return the stored value when the queue is no longer empty
+  return(receive_val); 
 }

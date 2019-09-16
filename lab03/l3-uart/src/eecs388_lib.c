@@ -112,7 +112,7 @@ char ser_read()
   uint32_t receive_val;
   
   // the looping condition is true when the 31st bit is true 
-  // (the queue is empty) -> repeat
+  // this indicates that the queue is empty and therefore we repeat
   do {
     receive_val = *(volatile uint32_t *)(UART0_CTRL_ADDR + UART_RXDATA);
   } while(receive_val & 0x80000000); 

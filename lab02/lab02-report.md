@@ -42,7 +42,8 @@ The output will be **0** because the integer type is 8-bit, fixed, and unsigned.
       * Update the gpio color encoding at the end of each loop using the updateGPIO function
       * Update the gpio mode using the changed color from above
 ```c
-int updateGPIO(int lastGPIO) {        //returns the next color's integer code based on the previous color's code
+//returns the next color's integer code based on the previous color's code
+int updateGPIO(int lastGPIO) {
   switch (lastGPIO) {
     case RED_LED: return(GREEN_LED);
     case GREEN_LED: return(BLUE_LED);
@@ -58,12 +59,17 @@ int main()
   gpio_mode(gpio, OUTPUT);
   while(1) {
        gpio_write(gpio, ON);
-       delay(500);                  //changed from 1000 ms (lab 01) to 500 ms 
+       
+       //changed from 1000 ms (lab 01) to 500 ms 
+       delay(500);                  
        gpio_write(gpio, OFF);
        delay(300);
-
-       gpio = updateGPIO(gpio);     //reassigns the gpio int to be the next color based on current color
-       gpio_mode(gpio, OUTPUT);     //updates the gpio_mode to use the newly-assigned color
+       
+       //reassigns the gpio int to be the next color based on current color
+       gpio = updateGPIO(gpio);
+       
+       //updates the gpio_mode to use the newly-assigned color
+       gpio_mode(gpio, OUTPUT);     
   }
 }
 ```

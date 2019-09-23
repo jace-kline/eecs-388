@@ -15,7 +15,7 @@ int main()
 
     ser_printline("Setup completed.\n");
 
-    int dist; // read distance value. 
+    int dist = 0; // read distance value. 
 
     while (1) {
         /* 
@@ -25,7 +25,20 @@ int main()
               (you can use either printf or sprintf & ser_printline function)
         */
         if ('Y' == ser_read() && 'Y' == ser_read()) {
-            // YOUR CODE HERE
+            // Read the first byte of number data
+            int low_data = ser_read();
+
+            // Read the second byte of number data
+            int high_data = ser_read();
+
+            /* Shift the bits of the high data bits to the left to allow room for the
+               lower 8 bits of data. Then use the bitwise OR operation to combine the 
+               two numbers together. The result is stored as 'dist'.
+            */
+            dist = ((high_data << 8) | low_data);
+
+            //Print the stream of the dist data. One value on each line.
+            printf("dist: %d cm\n", dist);
         }
 
         /* 
@@ -33,10 +46,15 @@ int main()
             - turn on the red light if the distance is less than 50cm. 
             - otherwise turn on the green light 
         */
+
+       // For each condition, turn off the other condition's LED, then
+       // turn on the correct condition's LED
         if (dist < 50) {
-            // YOUR CODE HERE
+            gpio_write(GREEN_LED, OFF);
+            gpio_write(RED_LED, ON);
         } else {
-            // YOUR CODE HERE
+            gpio_write(RED_LED, OFF);
+            gpio_write(GREEN_LED, ON);
         }
     }
 }

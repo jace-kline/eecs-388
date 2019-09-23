@@ -49,18 +49,15 @@ void delay(int msec)
 
 void ser_setup()
 {
+  /* enable UART1 IOF */
+  *(volatile uint32_t *)(GPIO_CTRL_ADDR + GPIO_IO_FUNC_EN) |= 0x840000;
+
   /* initialize UART0 TX/RX */
   *(volatile uint32_t *)(UART0_CTRL_ADDR + UART_TXCTRL) |= 0x1;
   *(volatile uint32_t *)(UART0_CTRL_ADDR + UART_RXCTRL) |= 0x1;
+  *(volatile uint32_t *)(UART0_CTRL_ADDR + UART_DIV) = 137; /* ~115200 bps */
 }
 
-/**
- * write a chacter to the UART 0 FIFO
- * 
- * Input: 
- *  @c    character to send via the UART
- * Return: None
- */
 void ser_write(char c)
 {
   uint32_t regval;
@@ -73,13 +70,6 @@ void ser_write(char c)
   *(volatile uint32_t *)(UART0_CTRL_ADDR + UART_TXDATA) = c;
 }
 
-/**
- * write a chacter string to the UART 0
- * 
- * Input:
- *  @str    string point
- * Return: None
- */
 void ser_printline(char *str)
 {
   int i;
@@ -92,31 +82,28 @@ void ser_printline(char *str)
   }
 }
 
-/**
- * read a chacter from the uart 0
- * 
- * Input: None
- * Return: read byte
- */
 char ser_read()
 {
-  /*
-    The provided implementation doesn't actually read from the UART 0. 
-
-    What you need to do to implement this function are:
-    1) wait until UART0 RX FIFO is not empty
-    2) read the data from the FIFO and return the read (one) byte. 
-  */
-  
-  // A variable to store the dereferenced data value
-  uint32_t receive_val;
-  
-  // the looping condition is true when the 31st bit in our received data is true
-  // this indicates that the queue is empty and therefore we repeat receiving the data
+  uint32_t regval;
+  /* busy-wait if receive FIFO is empty  */
   do {
-    receive_val = *(volatile uint32_t *)(UART0_CTRL_ADDR + UART_RXDATA);
-  } while(receive_val & 0x80000000); 
+    regval = *(volatile uint32_t *)(UART0_CTRL_ADDR + UART_RXDATA);
+  } while (regval & 0x80000000);
+  /* return a byte */
+  return (uint8_t)(regval & 0xFF);
+}
 
-  //return the stored value when the queue is no longer empty
-  return(receive_val); 
+void ser_readline(int n, char *str)
+{
+  int i = 0; 
+  for (i = 0; i < n; i++) {
+    str[i] = ser_read();
+    if (str[i] == '\r') {
+      ser_read(); /* read '\n' */
+      str[i] = 0; 
+      return i;
+    }
+  }
+  str[i-1] = 0;
+  return i; 
 }

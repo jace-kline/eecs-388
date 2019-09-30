@@ -3,7 +3,7 @@
 <p>KUID: 2881618</p>
 <p>Lab Section: Monday, 2:00-3:50 PM</p>
 
-## Title: UART Communication
+## Title: LIDAR Sensor
 ## Procedure
 1. Download Source archive and extract the tar file a folder
 2. Open VSCode

@@ -16,7 +16,19 @@
  */
 void servo(int gpio, int pos)
 {
-    // YOUR CODE HERE
+   // Calculate the amount of time that we must delay with the ON signal
+   int on_delay_per_cycle = ((((SERVO_PULSE_MAX - SERVO_PULSE_MIN) / 180) * pos) + SERVO_PULSE_MIN);
+   // Write the ON signal
+   gpio_write(gpio, ON);
+   // Delay for the calculated time (in microseconds (us))
+   delay_usec(on_delay_per_cycle);
+   
+   // Calculate the amount of time to delay with an OFF signal
+   int off_delay_per_cycle = SERVO_PERIOD - on_delay_per_cycle;
+   // Write the OFF signal
+   gpio_write(gpio, OFF);
+   // Delay for the calculated time (in microseconds (us))
+   delay_usec(off_delay_per_cycle);
 }
 
 int main()

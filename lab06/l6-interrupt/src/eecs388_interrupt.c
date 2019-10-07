@@ -32,7 +32,12 @@ void timer_handler()
 {
     intr_count++;
 
-    // YOUR CODE HERE
+    /* 
+    Set the mtimecmp register to the value of the 
+    mtime register + the cycles required to make the
+    delay time to be 100ms before the next interrupt.
+    */
+    set_cycles(get_cycles() + (100*(32768/1000)));
 }
 
 void enable_timer_interrupt()
@@ -42,13 +47,22 @@ void enable_timer_interrupt()
 
 void enable_interrupt()
 {
-    // YOUR CODE HERE
+    /*
+    Turns on the required bit (bit 3) in the mstatus register to
+    enable machine interrupts.
+    */
     write_csr(mstatus, read_csr(mstatus) | (1 << MSTATUS_MIE_BIT));
 }
 
 void disable_interrupt()
 {
-    // YOUR CODE HERE
+    /*
+    Checks to see if the 3rd bit in the mstatus register is on, 
+    then disables the bit. Otherwise, it does nothing.
+    */
+    if((read_csr(mstatus) & (1 << MSTATUS_MIE_BIT) >> MSTATUS_MIE_BIT)) {
+        write_csr(mstatus, read_csr(mstatus) & (read_csr(mstatus) - (1 << MSTATUS_MIE_BIT)));
+    }
 }
 
 void register_trap_handler(void *func)

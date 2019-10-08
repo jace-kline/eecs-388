@@ -1,4 +1,4 @@
-# Lab 05 Report
+# Lab 06 Report
 <p>Name: <b>Jace Kline</b></p>
 <p>KUID: 2881618</p>
 <p>Lab Section: Monday, 2:00-3:50 PM</p>
@@ -69,3 +69,14 @@ void disable_interrupt()
 
 
 ## Conclusion
+
+In this lab, I learned about the topic of interrupts. This lab helped me to better understand their structure and significance in computing. I will summarize the following topics:
+1. What interrupts are
+2. Types of interrupts
+3. Benefits and Problems of interrupts
+
+Interrupts are a concept of an asynchronus and unpredictable "interrupt" in the current CPU process, which must be immediately handled. Each interrupt defined in any layer of the hardware or software must have a corresponding *handler* procedure, stored in memory, that is loaded and executed when the interrupt occurs. On each interrupt that is handled by the CPU, the entire working memory and state of the current program must be copied to another memory location. After this occurs, the interrupt handling procedure, often called an interrupt service routine (ISR), is loaded and executed by the CPU. Following this, the main program's last state is then re-loaded back into the CPU's working memory where the CPU resumes its execution of the program. Interrupts are often used to model signals, events, or queries that are asynchronous and seperate from the sequence of instructions defined for the main program.
+
+There are three major types of interrupts. The first type is called an external interrupt. This type usually pertains to an interrupt triggered by an external I/O device when a specific signal needs to be transmitted to the host CPU. The second type of interrupt is called a hardware interrupt. This type of interrupt often occurs when the machine is in an undesireable state (like dividing by zero, etc.), but it occurs at a level below the software. The last major type of interrupt is called a software interrupt. These interrupts, their triggers, and their handlers are defined within software itself.
+
+The concept of the interrupt is very controversial. In some cases it can be beneficial, but in other cases it can cause a variety of problems and edge cases. Interrupts are sometimes useful for periodically receiving external asynchronous signals and other similar tasks that are hard to model in sequential code. However, introducing interrupts in the program allows for non-determinism in timing and behavior, which drastically increases the complexity and number of edge cases in the program. Along with this, it adds the issues of concurrency and data races. Lastly, interrupts require the time overhead of copying the current program state to another memory location and then re-loading the state on every single interrupt occurrence. If these interrupts occur often, this can be very inefficient.

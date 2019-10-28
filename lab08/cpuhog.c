@@ -1,3 +1,5 @@
+#define _GNU_SOURCE
+
 #include <sched.h>
 #include <sys/time.h>
 #include <sys/resource.h>
@@ -10,7 +12,7 @@ int main() {
   CPU_SET(0, &s);
   sched_setaffinity(0, sizeof(cpu_set_t), &s);
 
-  int setpriority(PRIO_PROCESS, 0, 5);
+  setpriority(PRIO_PROCESS, 0, 5);
 
   while(1);
 }

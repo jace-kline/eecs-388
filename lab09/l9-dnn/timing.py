@@ -27,3 +27,4 @@ def runtests(repeats):
         i += 1
     return tests_by_cpu
 
+print(runtests(1)[0][0])

@@ -15,11 +15,11 @@ int main()
 
     int prev_dist = 0;
     int prev_angle = 0; 
-    volatile char* data;
+    
     while (1) {
-        if(ser_isready(0)) {
-            *(data) = ser_read(0);
-            ser_printline(1, data);
+        if(ser_isready(1)) {
+            char data = ser_read(1);
+            ser_write(0, data); 
         }
     }
 }

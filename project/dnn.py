@@ -12,7 +12,6 @@ import math
 import numpy as np
 import serial
 import struct
-import local_common as cm
 
 font = cv2.FONT_HERSHEY_SIMPLEX
 
@@ -61,7 +60,6 @@ print('---------- Processing video for epoch 1 ----------')
 #Open the video file
 vid_path = '../lab09/l9-dnn/epoch-1.avi'
 assert os.path.isfile(vid_path)
-frame_count = cm.frame_count(vid_path)
 cap = cv2.VideoCapture(vid_path)
 
 #Process the video while recording the operation execution times
@@ -75,14 +73,26 @@ while(1):
                 ret, img = cap.read()
                 if not ret:
                         break
+                
+                prep_start = time.time()
 
                 #Preprocess the input frame
                 img = cv2.resize(img, (200, 66))
                 img = img / 255.
 
+                pred_start = time.time()
+
                 #Feed the frame to the model and get the control output
                 rad = model.y.eval(feed_dict={model.x: [img]})[0][0]
                 deg = rad2deg(rad)
+
+                pred_end   = time.time()
+
+                #Calculate the timings for each step
+                cam_time  = (prep_start - cam_start)*1000
+                prep_time = (pred_start - prep_start)*1000
+                pred_time = (pred_end - pred_start)*1000
+                tot_time  = (pred_end - cam_start)*1000
 
                 #Write the angle to the serial 1 port
                 ser1.write(struct.pack("lf", deg, deg))

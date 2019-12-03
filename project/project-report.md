@@ -8,6 +8,7 @@
 ## Procedure
 ### Part 1 - HiFive Board
 1. Ensure all wire connections from PC to HiFive, Pi 4 to HiFive, and the HiFive to motor are connected correctly
+![Setup](setup.HEIC)
 2. Create a VSCode PlatformioIDE project with the library files from Lab10
 3. Implement the following constraints for the received steering angle
    * Be able to read the steering angle from the UART1 serial port
@@ -320,4 +321,4 @@ With the knowledge of DNN, GUI, and board-to-board communication, we were able t
 
 In the last section, I will talk about possible additions/ideas that could be related to the project. First, I believe it would be beneficial to extend the current code to a real instance of a remote control car. For this, we would need to consider two additional components and one additional variable. We would need to incorporate a camera system (instead of a video file) to provide the real-time DNN inferencing data. This would require a camera and an additional connection to the Pi4 board. Along with this, we would have to mount the LIDAR sensor on the car for it to sense when the car gets extremely close to an obstacle. Another component to consider would be the control of the car's speed. This could be either dynamic (changes based on environment) or statically supplied. Either way, however, there would need to be a signal coming from the Pi4 and going to the car's speed control system. To control the car's direction, we would need to port the process used for controlling the servo to the analogous operation of controlling the direction of the actual car.
 
-Another interesting and more advanced project that is related to this self-driving 
+Another interesting and more advanced project that is related to this self-driving car project is that of a self-flying plane or a self-flying drone. These are both projects where the same general embedded system concepts could be applied, yet these extension projects would be much more complex in their size, scope, and quantity of variables to account for. For anyone interested in embedded system development, these projects would certainly be worthwhile and engaging.

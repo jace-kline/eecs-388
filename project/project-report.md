@@ -9,7 +9,7 @@
 ### Part 1 - HiFive Board
 1. Ensure all wire connections from PC to HiFive, Pi 4 to HiFive, and the HiFive to motor are connected correctly
    * Observe the picture below to view the setup...
-![Setup](./setup.png =250x250)
+![Setup](./setup.png | height=100)
 2. Create a VSCode PlatformioIDE project with the library files from Lab10
 3. Implement the following constraints for the received steering angle
    * Be able to read the steering angle from the UART1 serial port

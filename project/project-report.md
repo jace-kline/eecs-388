@@ -22,6 +22,7 @@
    * Be able to read the LIDAR distance from the UART0 serial port
    * If distance is greater than 50 cm, continue normal operation
    * If distance is less than 50 cm, turn on red LED and stop the servo motor (regardless of steering angle)
+
 ```c
 // Constants
 #define SERVO_PULSE_MAX 2400    /* 2400 us */

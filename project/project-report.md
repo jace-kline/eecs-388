@@ -9,9 +9,8 @@
 ### Part 1 - HiFive Board
 1. Ensure all wire connections from PC to HiFive, Pi 4 to HiFive, and the HiFive to motor are connected correctly
    * Observe the picture below to view the setup...
-![Setup](./setup.png | height=100)
 <p align="center">
-  <img src="./setup.png" width="250" height="250">
+  <img src="./setup.png" width="450" height="450">
 </p>
 2. Create a VSCode PlatformioIDE project with the library files from Lab10
 3. Implement the following constraints for the received steering angle
